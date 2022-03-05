@@ -13,12 +13,13 @@ export interface User extends Document {
   email: string;
   password: string;
   serialize: () => UserSerialize;
+  comparePassword: (password: string) => Promise<boolean>;
 }
 
 const UserSchema: Schema<User> = new Schema({
   first_name: { type: String },
   last_name: { type: String },
-  email: { type: String },
+  email: { type: String, unique: true },
   password: { type: String },
 });
 
