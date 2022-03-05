@@ -1,7 +1,11 @@
 import { Router } from 'express';
-import { createUser } from './controllers';
+import passport from 'passport';
+import { createUser, listUser } from './controllers';
 
 const routes = Router();
 
-routes.route('/').post(createUser);
+routes
+  .route('/')
+  .get(passport.authenticate('jwt', { session: false }), listUser)
+  .post(createUser);
 export default routes;

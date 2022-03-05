@@ -5,7 +5,9 @@
   "author": "The-Kevin <kevin.almeida1111.ka@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "local": "export NODE_ENV=local && nodemon src/server.ts"
+    "local": "export NODE_ENV=local && nodemon src/server.ts",
+    "test": "export NODE_ENV=test && jest --detectOpenHandles --forceExit",
+    "lint": "prettier --check src/ && ./node_modules/.bin/eslint ."
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

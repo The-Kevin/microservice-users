@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import UserModel, { User, UserSerialize } from '../users/models/User';
+import UserModel, { User } from '../users/models/User';
 import RefreshToken from '../auth/models/RefreshToken';
 import uuid4 from 'uuid4';
-import { TokenData, promisifyLocalAuthenticate, getToken } from '../../utils/passport-helper';
+import { promisifyLocalAuthenticate, getToken } from '../../utils/passport-helper';
 
 async function handleLogin(user: User, res: Response) {
   const { accessToken, expiresIn } = await getToken(user);
@@ -39,5 +39,21 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   } catch (error) {
     console.log(error);
     next(new Error(error));
+  }
+};
+
+export const refresh = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const refreshTokenSend = await RefreshToken.findOne({ token: req.body.refresh_token });
+
+    if (refreshTokenSend !== null) {
+      const user = await UserModel.findById(refreshTokenSend.user_id);
+
+      handleLogin(user, res);
+    } else {
+      throw new Error("We couldn't complete your request, please check your refresh token.");
+    }
+  } catch (error) {
+    next(new Error(error.message));
   }
 };
