@@ -33,12 +33,10 @@ async function handleLogin(user: User, res: Response) {
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await promisifyLocalAuthenticate(req, res, next);
-    console.log('wtf');
 
     await handleLogin(user as User, res);
   } catch (error) {
-    console.log(error);
-    next(new Error(error));
+    next(new Error(error.message));
   }
 };
 
