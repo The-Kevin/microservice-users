@@ -24,6 +24,9 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 export const listUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const tokenData = req.user as TokenData;
+    const page = Number(req.query.page) || 0;
+    const limit = Number(req.query.limit) || 15;
+
     const users = await UserModel.aggregate([
       {
         $match: {
@@ -38,6 +41,12 @@ export const listUser = async (req: Request, res: Response, next: NextFunction) 
         $project: {
           password: 0,
         },
+      },
+      {
+        $skip: page * limit,
+      },
+      {
+        $limit: limit,
       },
     ]);
 

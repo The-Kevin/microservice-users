@@ -35,7 +35,7 @@ routes.get('/', (_req, res) => {
 });
 
 if (process.env.NODE_ENV === 'local') {
-  const port = process.env.LOCAL_PORT ?? 3001;
+  const port = process.env.LOCAL_PORT ?? 3002;
   app.listen(port, () => {
     console.log('Server Local On:', port);
   });

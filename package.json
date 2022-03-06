@@ -10,6 +10,7 @@
     "lint": "prettier --check src/ && ./node_modules/.bin/eslint ."
   },
   "dependencies": {
+    "@mobixtec/visse": "^1.1.8",
     "bcrypt": "^5.0.1",
     "chalk": "^5.0.0",
     "cors": "^2.8.5",
