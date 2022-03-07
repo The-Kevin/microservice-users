@@ -7,11 +7,10 @@ import routes from './modules/routes';
 import database from './database/mongoose';
 import morgan from 'morgan';
 import { usePassport } from './utils/passport-helper';
-
 const app = express();
 
 config();
-//TODO: tests with db, remove this condition
+
 if (process.env.NODE_ENV !== 'test') {
   database();
 }
@@ -35,7 +34,7 @@ routes.get('/', (_req, res) => {
 });
 
 if (process.env.NODE_ENV === 'local') {
-  const port = process.env.LOCAL_PORT ?? 3001;
+  const port = process.env.LOCAL_PORT ?? 3002;
   app.listen(port, () => {
     console.log('Server Local On:', port);
   });
