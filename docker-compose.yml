@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: serverless-ilia-users
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DB_URL=$DB_URL
+      - JWT_SECRET=$JWT_SECRET
+      - WALLET_URL=$WALLET_URL
+      - AMQP_URL=$AMQP_URL
+    ports:
+      - 3002:3002
+    volumes:
+      - .:/usr/app_users
+    networks:
+      - ilia-network
+  mongo-users:
+    image: mongo
+    ports:
+      - 27018:27017
+    networks:
+      - ilia-network
+networks:
+  ilia-network:
+    driver: bridge
