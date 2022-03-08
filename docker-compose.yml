@@ -13,7 +13,7 @@ services:
       - DB_URL=$DB_URL
       - JWT_SECRET=$JWT_SECRET
       - WALLET_URL=$WALLET_URL
-      - AMQP_URL=$AMQP_URL
+      - RABBITMQ_URL=$RABBITMQ_URL
     ports:
       - 3002:3002
     volumes:
